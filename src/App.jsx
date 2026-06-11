@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowUpRight,
   Beer,
@@ -101,6 +101,40 @@ const amenities = [
   },
 ];
 
+function Reveal({ children, className = '', delay = 0, as: Component = 'div', ...props }) {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.16, rootMargin: '0px 0px -8% 0px' },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Component
+      className={`reveal ${isVisible ? 'is-visible' : ''} ${className}`}
+      ref={ref}
+      style={{ '--reveal-delay': `${delay}ms` }}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+}
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [form, setForm] = useState({
@@ -199,7 +233,7 @@ function App() {
         />
         <div className="hero-shade" />
 
-        <div className="hero-content">
+        <div className="hero-content hero-enter">
           <div className="hero-logo-lockup" aria-label="Klub Bilardowy 9 stop">
             <img src="/logo-9stop-clean.png" alt="Klub Bilardowy 9 stop" />
           </div>
@@ -225,7 +259,7 @@ function App() {
           </div>
         </div>
 
-        <aside className="hero-panel" aria-label="Najważniejsze informacje">
+        <aside className="hero-panel hero-enter hero-enter-late" aria-label="Najważniejsze informacje">
           <div>
             <MapPin size={18} aria-hidden="true" />
             <span>Poznań, Klub Bilardowy 9 stop</span>
@@ -237,7 +271,7 @@ function App() {
         </aside>
       </section>
 
-      <section className="intro-band" id="o-klubie">
+      <Reveal as="section" className="intro-band" id="o-klubie">
         <div className="intro-copy">
           <p className="eyebrow">O klubie</p>
           <h2>Pasja do bilardu, komfort dla graczy</h2>
@@ -247,19 +281,19 @@ function App() {
           poziomie. Bez względu na to, czy planujesz wieczór ze znajomymi, czy
           trenujesz przed turniejem - u nas znajdziesz idealne warunki.
         </p>
-      </section>
+      </Reveal>
 
       <section className="highlights">
         {clubReasons.map(({ icon: Icon, title, text }) => (
-          <article className="highlight-card" key={title}>
+          <Reveal as="article" className="highlight-card" key={title}>
             <Icon size={24} aria-hidden="true" />
             <h3>{title}</h3>
             <p>{text}</p>
-          </article>
+          </Reveal>
         ))}
       </section>
 
-      <section className="split-section" id="stoly">
+      <Reveal as="section" className="split-section" id="stoly">
         <div className="image-column" aria-hidden="true">
           <div className="ambient-frame frame-large" />
           <div className="ambient-frame frame-small" />
@@ -289,43 +323,43 @@ function App() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       <section className="formats" aria-labelledby="oferta-heading">
-        <div className="section-heading">
+        <Reveal className="section-heading">
           <p className="eyebrow">Oferta</p>
           <h2 id="oferta-heading">Gra, bar i wieczór w dobrym stylu</h2>
-        </div>
+        </Reveal>
 
         <div className="experience-grid offer-grid">
-          {offerCards.map((item) => (
-            <article className="experience-card" key={item.title}>
+          {offerCards.map((item, index) => (
+            <Reveal as="article" className="experience-card" delay={index * 90} key={item.title}>
               <span>{item.kicker}</span>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
-            </article>
+            </Reveal>
           ))}
         </div>
       </section>
 
       <section className="experience-section" id="udogodnienia">
-        <div className="section-heading">
+        <Reveal className="section-heading">
           <p className="eyebrow">Udogodnienia</p>
           <h2>Komfort w każdym detalu</h2>
-        </div>
+        </Reveal>
 
         <div className="highlights amenities-grid">
-          {amenities.map(({ icon: Icon, title, text }) => (
-            <article className="highlight-card" key={title}>
+          {amenities.map(({ icon: Icon, title, text }, index) => (
+            <Reveal as="article" className="highlight-card" delay={index * 90} key={title}>
               <Icon size={24} aria-hidden="true" />
               <h3>{title}</h3>
               <p>{text}</p>
-            </article>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="membership">
+      <Reveal as="section" className="membership">
         <div>
           <p className="eyebrow">Atmosfera 9 stop</p>
           <h2>Wieczór przy stole, który naprawdę ma swój rytm</h2>
@@ -345,9 +379,9 @@ function App() {
             Bar, chillout i sport na dużym ekranie między partiami.
           </p>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="reservation-section" id="rezerwacje">
+      <Reveal as="section" className="reservation-section" id="rezerwacje">
         <div className="section-heading">
           <p className="eyebrow">Kontakt i rezerwacje</p>
           <h2>Rezerwacja stołów</h2>
@@ -456,9 +490,9 @@ function App() {
             </p>
           </form>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="map-section" aria-label="Mapa Google">
+      <Reveal as="section" className="map-section" aria-label="Mapa Google">
         <div className="map-copy">
           <p className="eyebrow">Mapa</p>
           <h2>Znajdź Klub Bilardowy 9 stop w Poznaniu</h2>
@@ -478,7 +512,7 @@ function App() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
-      </section>
+      </Reveal>
     </main>
   );
 }

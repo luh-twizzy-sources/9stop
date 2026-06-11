@@ -1,0 +1,922 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+  font-family:
+    Manrope, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #f7f0df;
+  background: #090907;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #f7f0df;
+  --muted: rgba(247, 240, 223, 0.7);
+  --soft: rgba(247, 240, 223, 0.1);
+  --line: rgba(247, 240, 223, 0.16);
+  --charcoal: #090907;
+  --red: #d6262f;
+  --red-dark: #7c1119;
+  --blue: #18a9e6;
+  --brass: #f5f7fb;
+  --stone: #d8ccb6;
+  --topbar-height: 5.1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(214, 38, 47, 0.22), transparent 30rem),
+    radial-gradient(circle at 82% 8%, rgba(24, 169, 230, 0.16), transparent 28rem),
+    #090907;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.site-shell {
+  padding-top: var(--topbar-height);
+  overflow: visible;
+}
+
+.topbar {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  color: var(--ink);
+  border-bottom: 1px solid rgba(247, 240, 223, 0.1);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(214, 38, 47, 0.12), transparent 24rem),
+    rgba(7, 6, 6, 0.94);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: fit-content;
+  font-family: "IBM Plex Sans Condensed", Arial Narrow, sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.brand small {
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--muted);
+  font-family: Manrope, sans-serif;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.brand-logo-wrap {
+  display: grid;
+  width: 4.7rem;
+  height: 2.8rem;
+  place-items: center;
+  overflow: visible;
+}
+
+.brand-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.4rem);
+  padding: 0.8rem 1.15rem;
+  border: 1px solid rgba(247, 240, 223, 0.12);
+  background: rgba(12, 12, 10, 0.46);
+  backdrop-filter: blur(18px);
+}
+
+.desktop-nav a {
+  color: rgba(247, 240, 223, 0.75);
+  font-size: 0.8rem;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.desktop-nav a:hover {
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.menu-toggle,
+.mobile-nav {
+  display: none;
+}
+
+.menu-toggle {
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 3rem;
+  padding: 0 0.95rem;
+  border: 1px solid rgba(247, 240, 223, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mobile-nav {
+  grid-column: 1 / -1;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+}
+
+.mobile-nav.is-open {
+  display: grid;
+}
+
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3.25rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(247, 240, 223, 0.12);
+  background: rgba(12, 12, 10, 0.82);
+  color: rgba(247, 240, 223, 0.82);
+  font-weight: 800;
+}
+
+.mobile-nav-cta {
+  color: #e9f8ff !important;
+  border-color: rgba(24, 169, 230, 0.34) !important;
+}
+
+.ghost-button,
+.primary-button,
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  white-space: nowrap;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.ghost-button {
+  justify-self: end;
+  padding: 0 1rem;
+  border: 1px solid rgba(24, 169, 230, 0.46);
+  background: rgba(12, 12, 10, 0.38);
+  color: #e9f8ff;
+  font-size: 0.85rem;
+  backdrop-filter: blur(18px);
+}
+
+.ghost-button:hover,
+.primary-button:hover,
+.text-link:hover {
+  transform: translateY(-2px);
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  min-height: 90vh;
+  padding: clamp(4rem, 11vh, 8rem) clamp(1rem, 6vw, 5.5rem) 5rem;
+  align-items: end;
+  isolation: isolate;
+}
+
+.hero-image,
+.hero-shade {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-image {
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.92) contrast(1.08);
+}
+
+.hero-shade {
+  z-index: -2;
+  background:
+    radial-gradient(circle at 76% 42%, rgba(24, 169, 230, 0.18), transparent 24rem),
+    radial-gradient(circle at 50% 18%, rgba(214, 38, 47, 0.2), transparent 30rem),
+    linear-gradient(90deg, rgba(5, 5, 5, 0.94) 0%, rgba(7, 7, 7, 0.72) 42%, rgba(5, 5, 5, 0.12) 76%),
+    linear-gradient(180deg, rgba(9, 9, 7, 0.2) 0%, rgba(9, 9, 7, 0.72) 100%);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 10rem;
+  background: linear-gradient(180deg, rgba(9, 9, 7, 0), #090907);
+}
+
+.hero-content {
+  width: min(62rem, 100%);
+}
+
+.hero-logo-lockup {
+  display: inline-grid;
+  width: clamp(11rem, 22vw, 17rem);
+  aspect-ratio: 298 / 166;
+  place-items: center;
+  margin-bottom: 1.2rem;
+  filter: drop-shadow(0 1rem 1.8rem rgba(0, 0, 0, 0.55));
+}
+
+.hero-logo-lockup img {
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: #62d6ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  font-family: "IBM Plex Sans Condensed", Arial Narrow, sans-serif;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin-bottom: 1.25rem;
+  max-width: 14ch;
+  font-size: clamp(3.35rem, 7.8vw, 7.6rem);
+}
+
+.no-break {
+  white-space: nowrap;
+}
+
+section {
+  scroll-margin-top: 6rem;
+}
+
+h2 {
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.35rem, 5.4vw, 5.4rem);
+}
+
+h3 {
+  margin-bottom: 0.85rem;
+  color: #fff7e8;
+  font-size: 1.05rem;
+}
+
+.hero-copy {
+  max-width: 38rem;
+  color: rgba(247, 240, 223, 0.78);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.2rem;
+}
+
+.primary-button {
+  min-width: 12rem;
+  padding: 0 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(135deg, #ff3a44, #c91520 58%, #8c0f16);
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 0.9rem 2rem rgba(214, 38, 47, 0.22);
+}
+
+.text-link {
+  padding: 0 0.5rem;
+  color: rgba(247, 240, 223, 0.86);
+  font-weight: 700;
+}
+
+.hero-panel {
+  position: absolute;
+  right: clamp(1rem, 4vw, 3rem);
+  bottom: 3rem;
+  display: grid;
+  gap: 0.8rem;
+  width: min(23rem, calc(100% - 2rem));
+  padding: 1rem;
+  border: 1px solid rgba(24, 169, 230, 0.2);
+  background: rgba(9, 9, 7, 0.55);
+  color: rgba(247, 240, 223, 0.76);
+  backdrop-filter: blur(20px);
+}
+
+.hero-panel div {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.intro-band,
+.split-section,
+.formats,
+.experience-section,
+.membership,
+.final-cta,
+.reservation-section,
+.map-section {
+  padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 6vw, 5.5rem);
+}
+
+.intro-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  border-top: 1px solid rgba(247, 240, 223, 0.1);
+}
+
+.intro-band h2 {
+  max-width: 13ch;
+}
+
+.intro-band p:last-child,
+.section-copy p,
+.section-heading p,
+.map-copy p,
+.final-cta p {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.85;
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  padding: 0 clamp(1rem, 6vw, 5.5rem) clamp(4rem, 8vw, 7rem);
+}
+
+.highlight-card,
+.experience-card {
+  min-height: 15rem;
+  padding: clamp(1.35rem, 3vw, 2rem);
+  border: 1px solid rgba(247, 240, 223, 0.13);
+  background:
+    linear-gradient(180deg, rgba(247, 240, 223, 0.055), rgba(247, 240, 223, 0.02)),
+    linear-gradient(135deg, rgba(214, 38, 47, 0.11), rgba(24, 169, 230, 0.06));
+}
+
+.highlight-card svg {
+  margin-bottom: 1.5rem;
+  color: var(--brass);
+}
+
+.highlight-card p,
+.experience-card p,
+.membership-list p {
+  color: rgba(247, 240, 223, 0.68);
+  line-height: 1.65;
+}
+
+.split-section {
+  display: grid;
+  grid-template-columns: minmax(18rem, 1fr) minmax(19rem, 0.82fr);
+  gap: clamp(2rem, 7vw, 6rem);
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(214, 38, 47, 0.18), transparent),
+    #0c0c09;
+}
+
+.image-column {
+  position: relative;
+  min-height: 34rem;
+}
+
+.ambient-frame {
+  position: absolute;
+  border: 1px solid rgba(198, 161, 91, 0.24);
+  background-image:
+    linear-gradient(180deg, rgba(9, 9, 7, 0.1), rgba(9, 9, 7, 0.56)),
+    url("/pool-hero-9stop.png");
+  background-size: cover;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.42);
+}
+
+.frame-large {
+  inset: 0 16% 10% 0;
+  background-image:
+    linear-gradient(180deg, rgba(9, 9, 7, 0.08), rgba(9, 9, 7, 0.42)),
+    url("/snooker-table-9stop.png");
+  background-position: 58% 50%;
+}
+
+.frame-small {
+  right: 0;
+  bottom: 0;
+  width: 44%;
+  aspect-ratio: 0.82;
+  background-image:
+    linear-gradient(180deg, rgba(9, 9, 7, 0.06), rgba(9, 9, 7, 0.38)),
+    url("/pool-detail-9stop.png");
+  background-position: 72% 52%;
+}
+
+.section-copy {
+  max-width: 38rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2.2rem;
+}
+
+.stats-grid div {
+  border-top: 1px solid rgba(24, 169, 230, 0.42);
+  padding-top: 1rem;
+}
+
+.stats-grid strong {
+  display: block;
+  color: #fff6df;
+  font-family: "IBM Plex Sans Condensed", Arial Narrow, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.stats-grid span {
+  display: block;
+  color: rgba(247, 240, 223, 0.64);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.section-heading {
+  width: min(54rem, 100%);
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.formats {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(44rem, 82vh, 58rem);
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.94) 0%, rgba(5, 5, 5, 0.8) 42%, rgba(5, 5, 5, 0.38) 72%, rgba(5, 5, 5, 0.82) 100%),
+    linear-gradient(180deg, rgba(5, 5, 5, 0.5) 0%, rgba(5, 5, 5, 0.84) 76%, #090907 100%),
+    url("/snooker-table-9stop.png");
+  background-size: cover;
+  background-position: center 42%;
+}
+
+.formats::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 76% 24%, rgba(24, 169, 230, 0.14), transparent 26rem),
+    radial-gradient(circle at 18% 32%, rgba(214, 38, 47, 0.13), transparent 30rem);
+  pointer-events: none;
+}
+
+.formats > * {
+  position: relative;
+  z-index: 1;
+}
+
+.format-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.format-list span {
+  min-height: 7rem;
+  padding: 1.4rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: #fff5df;
+  font-family: "IBM Plex Sans Condensed", Arial Narrow, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(1.35rem, 2.4vw, 2.4rem);
+  line-height: 1.05;
+}
+
+.experience-section {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(24, 169, 230, 0.13), transparent 26rem),
+    linear-gradient(180deg, rgba(214, 38, 47, 0.15), rgba(9, 9, 7, 0.28)),
+    #0b0b08;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.offer-grid {
+  align-items: stretch;
+}
+
+.experience-card span {
+  display: block;
+  margin-bottom: 4rem;
+  color: var(--brass);
+  font-family: "IBM Plex Sans Condensed", Arial Narrow, sans-serif;
+  font-weight: 700;
+  font-size: 2.3rem;
+}
+
+.membership {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(18rem, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.membership-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.membership-list p {
+  display: flex;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(247, 240, 223, 0.13);
+}
+
+.membership-list svg {
+  flex: 0 0 auto;
+  color: var(--brass);
+}
+
+.amenities-grid {
+  padding: 0;
+}
+
+.reservation-section {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(214, 38, 47, 0.14), transparent 26rem),
+    radial-gradient(circle at 82% 12%, rgba(24, 169, 230, 0.12), transparent 28rem),
+    linear-gradient(180deg, #090907, #0d0d0a);
+}
+
+.reservation-layout {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.78fr) minmax(22rem, 1.22fr);
+  gap: clamp(1.2rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.contact-card,
+.call-form {
+  border: 1px solid rgba(247, 240, 223, 0.14);
+  background:
+    linear-gradient(180deg, rgba(247, 240, 223, 0.06), rgba(247, 240, 223, 0.025)),
+    rgba(12, 12, 10, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.contact-card {
+  display: grid;
+  gap: 0;
+}
+
+.contact-row {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  border-bottom: 1px solid rgba(247, 240, 223, 0.12);
+}
+
+.contact-row:last-child {
+  border-bottom: 0;
+}
+
+.contact-row svg {
+  flex: 0 0 auto;
+  color: var(--brass);
+}
+
+.contact-row span,
+.contact-content {
+  display: grid;
+  gap: 0.35rem;
+  color: rgba(247, 240, 223, 0.67);
+  line-height: 1.5;
+}
+
+.contact-row strong,
+.contact-content strong {
+  color: #fff4dd;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.opening-hours {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+  width: min(100%, 24rem);
+}
+
+.opening-hours div {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 1fr) auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(247, 240, 223, 0.08);
+}
+
+.opening-hours div:last-child {
+  border-bottom: 0;
+}
+
+.opening-hours span {
+  display: block;
+  color: rgba(247, 240, 223, 0.66);
+}
+
+.opening-hours strong {
+  color: #fff4dd;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.call-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.call-form label {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: rgba(247, 240, 223, 0.74);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.call-form input,
+.call-form select,
+.call-form textarea {
+  width: 100%;
+  min-height: 3.35rem;
+  border: 1px solid rgba(247, 240, 223, 0.15);
+  border-radius: 0;
+  outline: 0;
+  background: rgba(9, 9, 7, 0.76);
+  color: var(--ink);
+  font: inherit;
+  padding: 0 0.9rem;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.call-form input:focus,
+.call-form select:focus,
+.call-form textarea:focus {
+  border-color: rgba(24, 169, 230, 0.72);
+  box-shadow: 0 0 0 3px rgba(24, 169, 230, 0.12);
+}
+
+.call-form textarea {
+  min-height: 7rem;
+  padding-top: 0.85rem;
+  resize: vertical;
+}
+
+.call-form ::placeholder {
+  color: rgba(247, 240, 223, 0.38);
+}
+
+.form-full,
+.form-actions,
+.form-note {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.35rem;
+}
+
+.form-note {
+  margin: 0;
+  color: rgba(247, 240, 223, 0.58);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.map-section {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.72fr) minmax(22rem, 1.28fr);
+  gap: clamp(1.4rem, 5vw, 4rem);
+  align-items: stretch;
+  background: #0b0b08;
+}
+
+.map-copy {
+  align-self: center;
+}
+
+.google-map {
+  width: 100%;
+  min-height: clamp(22rem, 45vw, 35rem);
+  border: 1px solid rgba(247, 240, 223, 0.16);
+  filter: saturate(0.85) contrast(1.05);
+}
+
+.final-cta {
+  position: relative;
+  min-height: 34rem;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background-image:
+    linear-gradient(180deg, rgba(9, 9, 7, 0.64), rgba(9, 9, 7, 0.9)),
+    url("/pool-hero-9stop.png");
+  background-size: cover;
+  background-position: center 58%;
+}
+
+.final-cta h2,
+.final-cta p {
+  width: min(44rem, 100%);
+}
+
+.final-cta .primary-button {
+  margin-top: 1.2rem;
+}
+
+@media (max-width: 980px) {
+  .topbar {
+    grid-template-columns: 1fr auto auto;
+    gap: 0.75rem;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .intro-band,
+  .split-section,
+  .membership,
+  .reservation-layout,
+  .map-section {
+    grid-template-columns: 1fr;
+  }
+
+  .highlights,
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .format-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-panel {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --topbar-height: 4.65rem;
+  }
+
+  .topbar {
+    padding: 0.85rem 1rem;
+  }
+
+  .topbar > .ghost-button {
+    display: none;
+  }
+
+  .hero {
+    min-height: 88vh;
+    padding-top: 4rem;
+  }
+
+  h1 {
+    font-size: clamp(2.7rem, 14vw, 4.6rem);
+  }
+
+  .hero-shade {
+    background:
+      linear-gradient(90deg, rgba(9, 9, 7, 0.9), rgba(9, 9, 7, 0.44)),
+      linear-gradient(180deg, rgba(9, 9, 7, 0.04), rgba(9, 9, 7, 0.82));
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .text-link {
+    justify-content: flex-start;
+  }
+
+  .image-column {
+    min-height: 24rem;
+  }
+
+  .stats-grid,
+  .format-list,
+  .call-form {
+    grid-template-columns: 1fr;
+  }
+
+  .format-list span {
+    min-height: 5.7rem;
+  }
+
+  .brand {
+    font-size: 0.86rem;
+  }
+
+  .brand-logo-wrap {
+    width: 3.6rem;
+    height: 2.15rem;
+  }
+}

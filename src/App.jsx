@@ -513,6 +513,44 @@ function App() {
           referrerPolicy="no-referrer-when-downgrade"
         />
       </Reveal>
+
+      <footer className="site-footer">
+        <div className="footer-brand">
+          <img src="/logo-9stop-clean.png" alt="Klub Bilardowy 9 stop" />
+          <p>
+            Profesjonalny bilard, snooker i bar w klubowej atmosferze w
+            Poznaniu.
+          </p>
+        </div>
+
+        <nav className="footer-links" aria-label="Linki w stopce">
+          <h3>Menu</h3>
+          {navItems.map((item) => (
+            <a href={item.href} key={item.label}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="footer-contact">
+          <h3>Kontakt</h3>
+          <a href={phoneHref}>{phoneDisplay}</a>
+          <a href={`mailto:${email}`}>{email}</a>
+          <span>Poznań, Klub Bilardowy 9 stop</span>
+        </div>
+
+        <div className="footer-hours">
+          <h3>Godziny</h3>
+          <span>Pon-Pt: 17:00 - 01:00</span>
+          <span>Sobota: 17:00 - 02:00</span>
+          <span>Niedziela: 17:00 - 00:00</span>
+        </div>
+
+        <div className="footer-bottom">
+          <span>© 2026 Klub Bilardowy 9 stop</span>
+          <span>Rezerwacje przyjmujemy telefonicznie lub mailowo.</span>
+        </div>
+      </footer>
     </main>
   );
 }
